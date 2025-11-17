@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  TravelSchedule
-//
-//  Created by MacOSMini on 17.11.2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
