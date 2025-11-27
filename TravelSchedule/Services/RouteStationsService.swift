@@ -3,11 +3,11 @@ import OpenAPIURLSession
 
 typealias RouteStations = Components.Schemas.ThreadStationsResponse
 
-protocol RouteStationsServiceProtacol {
+protocol RouteStationsServiceProtocol {
     func getRouteStations(uid: String)  async throws -> RouteStations
 }
 
-final class RouteStationsService: RouteStationsServiceProtacol {
+final class RouteStationsService: RouteStationsServiceProtocol {
     private let client: Client
     private let apiKey: String
     

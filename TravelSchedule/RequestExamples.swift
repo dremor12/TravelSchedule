@@ -1,13 +1,19 @@
 import Foundation
 import OpenAPIURLSession
+import OpenAPIRuntime
+
 
 final class RequestExamples {
     
-    private static func createClient() -> Client {
+    private static func createClient(apiKey: String) -> Client {
+        let middlewares: [ClientMiddleware] = [
+            AuthorizationMiddleware(apiKey: apiKey)
+        ]
         do {
             return Client(
                 serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
+                transport: URLSessionTransport(),
+                middlewares: middlewares
             )
         } catch {
             print("Error creating client: \(error)")
@@ -18,8 +24,8 @@ final class RequestExamples {
     static func testFetchStations() {
         Task {
             do {
-                let client = createClient()
-                
+                let client = createClient(apiKey: GlobalParams.apiKey)
+
                 let service = NearestStationsService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -40,7 +46,7 @@ final class RequestExamples {
     static func testSearch() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = ScheduleBetweenStationsService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -60,7 +66,7 @@ final class RequestExamples {
     static func testListStation() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = StationScheduleService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -79,7 +85,7 @@ final class RequestExamples {
     static func testThread() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = RouteStationsService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -98,7 +104,7 @@ final class RequestExamples {
     static func testFetchCity() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = NearestCityService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -118,7 +124,7 @@ final class RequestExamples {
     static func testCopyright() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = CopyrightService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -135,7 +141,7 @@ final class RequestExamples {
     static func testCarrierInfo() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = CarrierInfoService(
                     client: client,
                     apiKey: GlobalParams.apiKey
@@ -152,7 +158,7 @@ final class RequestExamples {
     static func testAllStations() {
         Task {
             do {
-                let client = createClient()
+                let client = createClient(apiKey: GlobalParams.apiKey)
                 let service = AllStationsService(
                     client: client,
                     apiKey: GlobalParams.apiKey

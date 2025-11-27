@@ -3,11 +3,11 @@ import OpenAPIURLSession
 
 typealias ScheduleBetweenStations = Components.Schemas.Segments
 
-protocol ScheduleBetweenStationsServiceProtacol {
+protocol ScheduleBetweenStationsServiceProtocol {
     func getScheduleBetweenStations(from: String, to: String) async throws -> ScheduleBetweenStations
 }
 
-final class ScheduleBetweenStationsService: ScheduleBetweenStationsServiceProtacol {
+final class ScheduleBetweenStationsService: ScheduleBetweenStationsServiceProtocol {
     private let client: Client
     private let apiKey: String
     
