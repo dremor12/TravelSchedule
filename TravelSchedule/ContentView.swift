@@ -4,23 +4,27 @@ import OpenAPIURLSession
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+
+            VStack {
+                Spacer()
+                    .frame(height: 208)
+                DirectionInputView()
+                Spacer()
+            }
+            .tabItem {
+                Image(systemName: "arrow.up.message.fill")
+            }
+            
+            ZStack {
+                // TODO
+            }
+            .tabItem {
+                Image(systemName: "gearshape.fill")
+            }
+            
         }
-        .padding()
-        .onAppear {
-            RequestExamples.testFetchStations()
-            RequestExamples.testSearch()
-            RequestExamples.testListStation()
-            RequestExamples.testThread()
-            RequestExamples.testFetchCity()
-            RequestExamples.testCopyright()
-            RequestExamples.testCarrierInfo()
-            RequestExamples.testAllStations()
-        }
+        .tint(.black)
     }
 }
 
