@@ -32,7 +32,7 @@ struct FiltrationView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Время отправления")
                             .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                             .padding(.horizontal, 16)
                             .padding(.top, 8)
                             .padding(.bottom, 16)
@@ -50,14 +50,14 @@ struct FiltrationView: View {
                                     HStack(spacing: 8) {
                                         Text(period.rawValue)
                                             .font(.system(size: 17, weight: .regular))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Colors.blackTopicColor)
                                         Text(period.timeRange)
                                             .font(.system(size: 17, weight: .regular))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Colors.blackTopicColor)
                                         Spacer()
                                         Image(systemName: isSelected ? "checkmark.square.fill" : "square")
                                             .font(.system(size: 24))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Colors.blackTopicColor)
                                     }
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 12)
@@ -65,14 +65,14 @@ struct FiltrationView: View {
                                 }
                             }
                         }
-                        .background(Color.white)
+                        .background(Colors.viewBackgroundColor)
                     }
-                    .background(Color.white)
+                    .background(Colors.viewBackgroundColor)
 
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Показывать варианты с пересадками")
                             .font(.system(size: 24, weight: .bold))
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                             .padding(.horizontal, 16)
                             .padding(.top, 8)
                             .padding(.bottom, 16)
@@ -86,11 +86,11 @@ struct FiltrationView: View {
                                     HStack {
                                         Text(option.rawValue)
                                             .font(.system(size: 17, weight: .regular))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Colors.blackTopicColor)
                                         Spacer()
                                         Image(systemName: isSelected ? "record.circle" : "circle")
                                             .font(.system(size: 24))
-                                            .foregroundColor(.black)
+                                            .foregroundColor(Colors.blackTopicColor)
                                     }
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 16)
@@ -98,22 +98,20 @@ struct FiltrationView: View {
                                 }
                             }
                         }
-                        .background(Color.white)
+                        .background(Colors.viewBackgroundColor)
                     }
-                    .background(Color.white)
+                    .background(Colors.viewBackgroundColor)
                 }
                 .padding(.bottom, 100)
             }
-            .background(Color.white)
-            .navigationTitle("Уточнить время")
-            .navigationBarTitleDisplayMode(.inline)
+            .background(Colors.viewBackgroundColor)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button { dismiss() } label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 17))
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                     }
                 }
             }
@@ -126,13 +124,13 @@ struct FiltrationView: View {
                             .font(.system(size: 17, weight: .bold))
                             .frame(maxWidth: .infinity)
                             .frame(height: 60)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
+                            .background(.ypBlueUniversal)
+                            .foregroundColor(.ypWhiteUniversal)
                             .cornerRadius(16)
                     }
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
-                    .background(Color.white)
+                    .background(Colors.viewBackgroundColor)
                 }
             }
     }

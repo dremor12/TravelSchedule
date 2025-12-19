@@ -25,21 +25,21 @@ struct StationSelectionView: View {
                 Spacer()
                 Text("Станция не найдена")
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(Colors.blackTopicColor)
                 Spacer()
             } else {
                 List(filteredStations, id: \.self) { station in
                     HStack {
                         Text(station)
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(.primary)
+                            .foregroundColor(Colors.blackTopicColor)
                         
                         Spacer()
                             .frame(height: 38)
                         
                         Image(systemName: "chevron.right")
                             .frame(width: 24, height: 24)
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -50,7 +50,7 @@ struct StationSelectionView: View {
                 .listStyle(.inset)
             }
         }
-        .background(Color.white)
+        .background(Colors.viewBackgroundColor)
         .navigationTitle("Выбор станции")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -61,7 +61,7 @@ struct StationSelectionView: View {
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 17))
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.blackTopicColor)
                 }
             }
         }

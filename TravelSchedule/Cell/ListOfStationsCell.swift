@@ -16,17 +16,17 @@ struct ListOfStationsCell: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(company.companyName)
                                 .font(.system(size: 17, weight: .regular))
-                                .foregroundColor(.black)
+                                .foregroundColor(.ypBlackUniversal)
                             if company.needSwapStation, let swapStation = company.swapStation {
                                 Text(swapStation)
                                     .font(.system(size: 12, weight: .regular))
-                                    .foregroundColor(.red)
+                                    .foregroundColor(.ypRedUniversal)
                             }
                         }
                         Spacer()
                         Text(company.date)
                             .font(.system(size: 12, weight: .regular))
-                            .foregroundColor(.black)
+                            .foregroundColor(.ypBlackUniversal)
                             .padding(.leading, 7)
                     }
                 }
@@ -35,31 +35,31 @@ struct ListOfStationsCell: View {
                     HStack {
                         Text(company.timeToStart)
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(.black)
+                            .foregroundColor(.ypBlackUniversal)
                         VStack {
                             Divider()
                         }
                         Text(company.allTimePath)
                             .font(.system(size: 12, weight: .regular))
-                            .foregroundColor(.black)
+                            .foregroundColor(.ypBlackUniversal)
                         VStack {
                             Divider()
                         }
                         Text(company.timeToOver)
                             .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(.black)
+                            .foregroundColor(.ypBlackUniversal)
                     }
                     .padding(.horizontal, 7)
                     .padding(.top, 6)
                 }
             }
             .frame(width: 343, height: 104)
-            .padding(.horizontal, 8)
-            .background(Color.gray.opacity(0.2))
+            .padding(.horizontal, 16)
+            .background(.ypLightGray)
             .cornerRadius(24)
             .overlay(
                 RoundedRectangle(cornerRadius: 24)
-                    .stroke(Color.white, lineWidth: 1)
+                    .stroke(.ypWhiteUniversal, lineWidth: 1)
             )
         }
     }

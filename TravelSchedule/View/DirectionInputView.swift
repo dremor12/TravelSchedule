@@ -32,7 +32,7 @@ struct DirectionInputView: View {
         VStack(spacing: 0) {
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.blue)
+                    .fill(.ypBlueUniversal)
                 HStack(spacing: 8) {
                     VStack(alignment: .leading, spacing: 24) {
                         Button(action: {
@@ -40,7 +40,7 @@ struct DirectionInputView: View {
                         }) {
                             Text(fromText)
                                 .padding(.leading)
-                                .foregroundColor(fromCity != nil ? .black : .gray)
+                                .foregroundColor(fromCity != nil ? .ypBlackUniversal : .ypGrayUniversal)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
@@ -50,14 +50,14 @@ struct DirectionInputView: View {
                         }) {
                             Text(toText)
                                 .padding(.leading)
-                                .foregroundColor(toCity != nil ? .black : .gray)
+                                .foregroundColor(toCity != nil ? .ypBlackUniversal : .ypGrayUniversal)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
                         }
                     }
                     .frame(width: 259, height: 96, alignment: .leading)
-                    .background(Color.white)
+                    .background(.ypWhiteUniversal)
                     .cornerRadius(20)
                     .padding(.leading, 16)
                     
@@ -68,11 +68,11 @@ struct DirectionInputView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 22.22, height: 16.43)
-                            .foregroundColor(.blue)
+                            .foregroundColor(.ypBlueUniversal)
                             .padding(8)
                     }
                     .frame(width: 36, height: 36)
-                    .background(Color.white)
+                    .background(.ypWhiteUniversal)
                     .clipShape(Circle())
                     
                     Spacer(minLength: 8)
@@ -89,8 +89,8 @@ struct DirectionInputView: View {
                     Text("Найти")
                         .font(.system(size: 17, weight: .bold))
                         .frame(width: 150 , height: 60)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
+                        .background(.ypBlueUniversal)
+                        .foregroundColor(.ypWhiteUniversal)
                         .cornerRadius(16)
                 }
                 .padding(.top, 16)

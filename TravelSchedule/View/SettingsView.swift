@@ -5,7 +5,7 @@ struct SettingsView: View {
         VStack {
             Text("Настройки")
         }
-        .background(Color.white)
+        .background(Colors.viewBackgroundColor)
     }
 }
 

@@ -23,7 +23,7 @@ struct ContentView: View {
             }
             
         }
-        .tint(.black)
+        .tint(Colors.blackTopicColor)
     }
 }
 

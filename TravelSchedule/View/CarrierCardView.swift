@@ -8,7 +8,7 @@ struct CarrierCardView: View {
         VStack {
             // TODO
         }
-        .background(Color.white)
+        .background(Colors.viewBackgroundColor)
         .navigationTitle("Информация о перевозчике")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -19,7 +19,7 @@ struct CarrierCardView: View {
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 17))
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.blackTopicColor)
                 }
             }
         }

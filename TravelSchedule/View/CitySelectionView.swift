@@ -26,7 +26,7 @@ struct CitySelectionView: View {
                     Spacer()
                     Text("Город не найден")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.blackTopicColor)
                     Spacer()
                 } else {
                     List(filteredCities) { city in
@@ -36,14 +36,14 @@ struct CitySelectionView: View {
                             HStack {
                                 Text(city.city)
                                     .font(.system(size: 17, weight: .regular))
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(Colors.blackTopicColor)
                                 
                                 Spacer()
                                     .frame(height: 38)
                                 
                                 Image(systemName: "chevron.right")
                                     .frame(width: 24, height: 24)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Colors.blackTopicColor)
                             }
                         }
                         .buttonStyle(.plain)
@@ -52,7 +52,7 @@ struct CitySelectionView: View {
                     .listStyle(.inset)
                 }
             }
-            .background(Color.white)
+            .background(Colors.viewBackgroundColor)
             .navigationTitle("Выбор города")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
@@ -63,7 +63,7 @@ struct CitySelectionView: View {
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 17))
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                     }
                 }
             }

@@ -38,7 +38,7 @@ struct SearchBar: View {
                         Image(systemName: "magnifyingglass")
                             .resizable()
                             .frame(width: 17, height: 17)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.ypGrayUniversal)
                         
                         Spacer()
                         
@@ -47,18 +47,18 @@ struct SearchBar: View {
                                 searchText = ""
                             }, label: {
                                 Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.ypGrayUniversal)
                                     .padding(.vertical)
                             })
                             
                         }
                         
                     }.padding(.horizontal, 10)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.ypLightGray)
                 )
             }
             .frame(height: 37)
-            .background(Color(red: 118.0/255, green: 118.0/255, blue: 128.0/255).opacity(0.12))
+            .background(Colors.searchTopicColor)
             .cornerRadius(10)
         }
         .frame(height: 37)

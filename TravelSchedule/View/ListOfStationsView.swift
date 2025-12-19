@@ -51,7 +51,7 @@ struct ListOfStationsView: View {
             VStack(spacing: 0) {
                 Text(routeTitle)
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(Colors.blackTopicColor)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
@@ -60,7 +60,7 @@ struct ListOfStationsView: View {
                     Spacer()
                     Text("Вариантов нет")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.black)
+                        .foregroundColor(Colors.blackTopicColor)
                     Spacer()
                 } else {
                     ScrollView {
@@ -76,7 +76,7 @@ struct ListOfStationsView: View {
                     }
                 }
             }
-            .background(Color.white)
+            .background(Colors.viewBackgroundColor)
             .navigationBarBackButtonHidden(true)
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
@@ -100,7 +100,7 @@ struct ListOfStationsView: View {
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 17))
-                            .foregroundColor(.black)
+                            .foregroundColor(Colors.blackTopicColor)
                     }
                 }
             }
@@ -114,19 +114,19 @@ struct ListOfStationsView: View {
                         
                         if hasActiveFilters {
                             Circle()
-                                .fill(Color.red)
+                                .fill(.ypRedUniversal)
                                 .frame(width: 8, height: 8)
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 60)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
+                    .background(.ypBlueUniversal)
+                    .foregroundColor(.ypWhiteUniversal)
                     .cornerRadius(16)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 8)
-                .background(Color.white)
+                .background(Colors.viewBackgroundColor)
             }
         }
     }
