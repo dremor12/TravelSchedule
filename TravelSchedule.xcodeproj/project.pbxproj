@@ -33,6 +33,7 @@
 		368CB5382ECDCCC4009B3473 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		368CB5492ECDD821009B3473 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		368CB55C2ECE0D98009B3473 /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
+		36B84B8B2EF4192800897844 /* Cell */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Cell; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 		3DD0AA722ECB397300D998A3 /* TravelSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				36B84B8B2EF4192800897844 /* Cell */,
 				360CBC742EE81F200024F08D /* Model */,
 				360CBBE72EE308E20024F08D /* View */,
 				368CB55C2ECE0D98009B3473 /* Helpers */,
@@ -112,6 +114,7 @@
 				368CB5382ECDCCC4009B3473 /* Resources */,
 				368CB5492ECDD821009B3473 /* Services */,
 				368CB55C2ECE0D98009B3473 /* Helpers */,
+				36B84B8B2EF4192800897844 /* Cell */,
 			);
 			name = TravelSchedule;
 			productName = TravelSchedule;

@@ -5,7 +5,6 @@ import OpenAPIURLSession
 struct ContentView: View {
     var body: some View {
         TabView {
-
             VStack {
                 Spacer()
                     .frame(height: 208)
@@ -17,7 +16,7 @@ struct ContentView: View {
             }
             
             ZStack {
-                // TODO
+                SettingsView()
             }
             .tabItem {
                 Image(systemName: "gearshape.fill")
