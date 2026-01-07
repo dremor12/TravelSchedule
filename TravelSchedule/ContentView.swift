@@ -15,12 +15,10 @@ struct ContentView: View {
                 Image(systemName: "arrow.up.message.fill")
             }
             
-            ZStack {
-                SettingsView()
-            }
-            .tabItem {
-                Image(systemName: "gearshape.fill")
-            }
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gearshape.fill")
+                }
             
         }
         .tint(Colors.blackTopicColor)
@@ -30,4 +28,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(ThemeManager())
 }

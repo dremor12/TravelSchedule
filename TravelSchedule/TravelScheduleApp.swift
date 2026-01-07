@@ -2,6 +2,8 @@ import SwiftUI
 
 @main
 struct TravelScheduleApp: App {
+    @StateObject private var themeManager = ThemeManager()
+    
     init() {
         configureTabBarAppearance()
     }
@@ -9,6 +11,8 @@ struct TravelScheduleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(themeManager.currentTheme.colorScheme)
+                .environmentObject(themeManager)
         }
     }
     
