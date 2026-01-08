@@ -7,21 +7,20 @@ extension CGFloat {
 
 struct ProgressBar: View {
     let numberOfSections: Int
+    var currentImage: Int
     let progress: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
+
                 RoundedRectangle(cornerRadius: .progressBarCornerRadius)
                     .frame(width: geometry.size.width, height: .progressBarHeight)
-                    .foregroundColor(.white)
+                    .foregroundColor(.ypWhiteUniversal)
 
                 RoundedRectangle(cornerRadius: .progressBarCornerRadius)
                     .frame(
-                        width: min(
-                            progress * geometry.size.width,
-                            geometry.size.width
-                        ),
+                        width: geometry.size.width * filledProgress(),
                         height: .progressBarHeight
                     )
                     .foregroundColor(.ypBlueUniversal)
@@ -30,6 +29,13 @@ struct ProgressBar: View {
                 MaskView(numberOfSections: numberOfSections)
             }
         }
+    }
+    
+    private func filledProgress() -> CGFloat {
+        guard numberOfSections > 0 else { return 0 }
+        let completedSections = CGFloat(currentImage)
+        let totalSections = CGFloat(numberOfSections)
+        return min((completedSections + progress) / totalSections, 1)
     }
 }
 
@@ -49,9 +55,15 @@ private struct MaskFragmentView: View {
         RoundedRectangle(cornerRadius: .progressBarCornerRadius)
             .fixedSize(horizontal: false, vertical: true)
             .frame(height: .progressBarHeight)
-            .foregroundStyle(.white)
+            .foregroundStyle(.ypWhiteUniversal)
     }
 }
 
-//#Preview {
-//}
+#Preview {
+    Color.orange
+        .ignoresSafeArea()
+        .overlay(
+            ProgressBar(numberOfSections: 2, currentImage: 1, progress: 0.5)
+                .padding()
+        )
+}

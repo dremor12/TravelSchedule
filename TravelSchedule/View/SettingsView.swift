@@ -64,7 +64,7 @@ struct SettingsView: View {
             }
             .background(Colors.viewBackgroundColor)
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showUserAgreement) {
+            .fullScreenCover(isPresented: $showUserAgreement) {
                 NavigationStack {
                     UserAgreementView()
                 }
