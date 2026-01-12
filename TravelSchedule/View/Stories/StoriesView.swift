@@ -22,14 +22,14 @@ struct StoriesView: View {
                       imageIndex: model.currentImageIndex)
             .animation(.linear(duration: 0.2), value: model.currentImageIndex)
             
-            ProgressBar(
+            ProgressBarView(
                 numberOfSections: model.currentStory.backgroundImage.count,
                 currentImage: model.currentImageIndex,
                 progress: model.progress
             )
             .padding(.init(top: 28, leading: 12, bottom: 12, trailing: 12))
             
-            CloseButton {
+            CloseButtonView {
                 model.isPresentStory = false}
             .padding(.top, 57)
             .padding(.trailing, 12)

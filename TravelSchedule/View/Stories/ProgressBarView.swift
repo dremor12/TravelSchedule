@@ -5,7 +5,7 @@ extension CGFloat {
     static let progressBarHeight: CGFloat = 6
 }
 
-struct ProgressBar: View {
+struct ProgressBarView: View {
     let numberOfSections: Int
     var currentImage: Int
     let progress: CGFloat
@@ -63,7 +63,7 @@ private struct MaskFragmentView: View {
     Color.orange
         .ignoresSafeArea()
         .overlay(
-            ProgressBar(numberOfSections: 2, currentImage: 1, progress: 0.5)
+            ProgressBarView(numberOfSections: 2, currentImage: 1, progress: 0.5)
                 .padding()
         )
 }
