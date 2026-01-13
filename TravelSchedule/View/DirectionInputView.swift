@@ -33,7 +33,9 @@ struct DirectionInputView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(.ypBlueUniversal)
-                HStack(spacing: 8) {
+                
+                HStack {
+                    
                     VStack(alignment: .leading, spacing: 24) {
                         Button(action: {
                             showFromSelection = true
@@ -56,28 +58,24 @@ struct DirectionInputView: View {
                                 .truncationMode(.tail)
                         }
                     }
-                    .frame(width: 259, height: 96, alignment: .leading)
+                    .frame(height: 96)
                     .background(.ypWhiteUniversal)
                     .cornerRadius(20)
-                    .padding(.leading, 16)
-                    
-                    Spacer()
-                    
+
                     Button(action: buttonChange) {
                         Image("change")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 22.22, height: 16.43)
                             .foregroundColor(.ypBlueUniversal)
-                            .padding(8)
                     }
                     .frame(width: 36, height: 36)
                     .background(.ypWhiteUniversal)
                     .clipShape(Circle())
-                    
-                    Spacer(minLength: 8)
+                    .padding(.leading, 8)
+                    .padding(.trailing, 16)
                 }
-                .padding(.trailing, 8)
+                .padding(.leading, 16)
             }
             .frame(height: 128)
             .padding(.horizontal, 16)

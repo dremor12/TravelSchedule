@@ -14,8 +14,7 @@ enum TimePeriod: String, CaseIterable, Hashable {
         case .night: return "00:00 - 06:00"
         }
     }
-    
-    /// Определяет, попадает ли время в этот период
+
     static func period(for timeString: String) -> TimePeriod? {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
