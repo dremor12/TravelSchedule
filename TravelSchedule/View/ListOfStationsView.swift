@@ -8,55 +8,55 @@ enum NavigationDestination: Hashable {
 struct ListOfStationsView: View {
     let fromCity: String
     let fromStation: String
+    let fromStationCode: String?
     let toCity: String
     let toStation: String
+    let toStationCode: String?
     
+    @StateObject private var viewModel: ListOfStationsViewModel
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) var dismiss
-    @State private var selectedTimePeriods: Set<TimePeriod> = []
-    @State private var selectedTransferOption: TransferOption? = nil
     
-    private var filteredCompany: [SelectCompanyModel] {
-        var companies = SelectCompanyModel.mockSelectCompany
-
-        if !selectedTimePeriods.isEmpty {
-            companies = companies.filter { company in
-                guard let period = TimePeriod.period(for: company.timeToStart) else { return false }
-                return selectedTimePeriods.contains(period)
-            }
-        }
-
-        if let transferOption = selectedTransferOption {
-            switch transferOption {
-            case .yes:
-                companies = companies.filter { $0.needSwapStation }
-            case .no:
-                companies = companies.filter { !$0.needSwapStation }
-            }
-        }
-        
-        return companies
-    }
-    
-    private var routeTitle: String {
-        return "\(fromCity) (\(fromStation)) → \(toCity) (\(toStation))"
-    }
-    
-    private var hasActiveFilters: Bool {
-        !selectedTimePeriods.isEmpty || selectedTransferOption != nil
+    init(
+        fromCity: String,
+        fromStation: String,
+        fromStationCode: String?,
+        toCity: String,
+        toStation: String,
+        toStationCode: String?
+    ) {
+        self.fromCity = fromCity
+        self.fromStation = fromStation
+        self.fromStationCode = fromStationCode
+        self.toCity = toCity
+        self.toStation = toStation
+        self.toStationCode = toStationCode
+        _viewModel = StateObject(wrappedValue: ListOfStationsViewModel(
+            fromCity: fromCity,
+            fromStation: fromStation,
+            fromStationCode: fromStationCode,
+            toCity: toCity,
+            toStation: toStation,
+            toStationCode: toStationCode,
+            apiClient: GlobalParams.createAPIClient()
+        ))
     }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack(spacing: 0) {
-                Text(routeTitle)
+                Text(viewModel.routeTitle)
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(Colors.blackTopicColor)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
                     .padding(.bottom, 16)
-                if filteredCompany.isEmpty {
+                if viewModel.isLoading {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                } else if viewModel.filteredCompany.isEmpty {
                     Spacer()
                     Text("Вариантов нет")
                         .font(.system(size: 24, weight: .bold))
@@ -65,7 +65,7 @@ struct ListOfStationsView: View {
                 } else {
                     ScrollView {
                         LazyVStack(spacing: 8) {
-                            ForEach(filteredCompany) { company in
+                            ForEach(viewModel.filteredCompany) { company in
                                 NavigationLink(value: NavigationDestination.carrier(company)) {
                                     ListOfStationsCell(company: company)
                                 }
@@ -84,11 +84,10 @@ struct ListOfStationsView: View {
                     CarrierCardView(company: company)
                 case .filtration:
                     FiltrationView(
-                        initialTimePeriods: selectedTimePeriods,
-                        initialTransferOption: selectedTransferOption
+                        initialTimePeriods: viewModel.selectedTimePeriods,
+                        initialTransferOption: viewModel.selectedTransferOption
                     ) { timePeriods, transferOption in
-                        selectedTimePeriods = timePeriods
-                        selectedTransferOption = transferOption
+                        viewModel.applyFilters(timePeriods: timePeriods, transferOption: transferOption)
                         navigationPath.removeLast()
                     }
                 }
@@ -112,7 +111,7 @@ struct ListOfStationsView: View {
                         Text("Уточнить время")
                             .font(.system(size: 17, weight: .bold))
                         
-                        if hasActiveFilters {
+                        if viewModel.hasActiveFilters {
                             Circle()
                                 .fill(.ypRedUniversal)
                                 .frame(width: 8, height: 8)
@@ -128,6 +127,10 @@ struct ListOfStationsView: View {
                 .padding(.bottom, 8)
                 .background(Colors.viewBackgroundColor)
             }
+            .task {
+                await viewModel.loadSchedule()
+            }
+            .errorOverlay(errorType: $viewModel.errorType)
         }
     }
 }
@@ -136,7 +139,9 @@ struct ListOfStationsView: View {
     ListOfStationsView(
         fromCity: "Москва",
         fromStation: "Ярославский вокзал",
+        fromStationCode: "s2000001",
         toCity: "Санкт Петербург",
-        toStation: "Балтийский вокзал"
+        toStation: "Балтийский вокзал",
+        toStationCode: "s9600213"
     )
 }

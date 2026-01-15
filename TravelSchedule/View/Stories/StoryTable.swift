@@ -10,28 +10,31 @@ struct StoryTable: View {
             HStack(spacing: 12) {
                 ForEach(stories, id: \.id) { story in
 
-                    ZStack(alignment: .bottom) {
-                        Image(story.previewImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 92, height: 140)
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .stroke(viewedStories.contains(story.id) ? .clear : Color.ypBlueUniversal, lineWidth: 4)
-                                    .padding(2)
-                            )
-                            .opacity(viewedStories.contains(story.id) ? 0.5 : 1)
+                    Button(action: {
+                        openStory(story)
+                    }) {
+                        ZStack(alignment: .bottom) {
+                            Image(story.previewImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 92, height: 140)
+                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                        .stroke(viewedStories.contains(story.id) ? .clear : Color.ypBlueUniversal, lineWidth: 4)
+                                        .padding(2)
+                                )
+                                .opacity(viewedStories.contains(story.id) ? 0.5 : 1)
 
-                        Text(story.title)
-                            .padding(8)
-                            .lineLimit(3)
-                            .frame(width: 92)
-                            .font(.system(size: 12))
-                            .foregroundColor(.ypWhiteUniversal)
+                            Text(story.title)
+                                .padding(8)
+                                .lineLimit(3)
+                                .frame(width: 92)
+                                .font(.system(size: 12))
+                                .foregroundColor(.ypWhiteUniversal)
+                        }
                     }
-                    .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .onTapGesture { openStory(story) }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.leading, 16)

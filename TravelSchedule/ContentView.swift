@@ -3,9 +3,10 @@ import OpenAPIRuntime
 import OpenAPIURLSession
 
 struct ContentView: View {
-    @State var storyViewModel = StoryViewModel( stories: [.story1, .story2, .story3, .story4])
+    @StateObject var storyViewModel = StoryViewModel( stories: [.story1, .story2, .story3, .story4])
     @State private var selectedStory: StoryModel = StoryModel.story1
     @State private var selectedTab: TabItem = .main
+    
     
     var body: some View {
         Group {
@@ -19,7 +20,9 @@ struct ContentView: View {
                         viewedStories: storyViewModel.viewedStories,
                         openStory: { story in
                             selectedStory = story
-                            storyViewModel.isPresentStory = true
+                            Task { @MainActor in
+                                storyViewModel.isPresentStory = true
+                            }
                         }
                     )
                     Spacer()
@@ -34,6 +37,13 @@ struct ContentView: View {
         .tint(Colors.blackTopicColor)
         .safeAreaInset(edge: .bottom) {
             TabBarView(selectedTab: $selectedTab)
+        }
+        .onChange(of: selectedTab) { oldValue, newValue in
+            if storyViewModel.isPresentStory {
+                Task { @MainActor in
+                    storyViewModel.isPresentStory = false
+                }
+            }
         }
         .fullScreenCover(isPresented: $storyViewModel.isPresentStory) {
             StoriesView(

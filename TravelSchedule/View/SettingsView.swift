@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(ThemeManager.self) private var themeManager
-    @State private var showUserAgreement = false
+    @StateObject private var viewModel = SettingsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -13,7 +13,7 @@ struct SettingsView: View {
             }
             .background(Colors.viewBackgroundColor)
             .navigationBarTitleDisplayMode(.inline)
-            .fullScreenCover(isPresented: $showUserAgreement) {
+            .fullScreenCover(isPresented: $viewModel.showUserAgreement) {
                 NavigationStack {
                     UserAgreementView()
                 }
@@ -48,7 +48,7 @@ struct SettingsView: View {
     
     private var userAgreementButton: some View {
         Button(action: {
-            showUserAgreement = true
+            viewModel.openUserAgreement()
         }) {
             HStack {
                 Text("Пользовательское соглашение")

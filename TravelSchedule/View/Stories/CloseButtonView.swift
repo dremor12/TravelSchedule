@@ -12,5 +12,5 @@ struct CloseButtonView: View {
 
 
 #Preview {
-    CloseButtonView(action: { print("Close Story") })
+    CloseButtonView(action: { })
 }

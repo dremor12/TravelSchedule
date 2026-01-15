@@ -7,11 +7,34 @@ struct ListOfStationsCell: View {
         ZStack {
             VStack(spacing: 8) {
                 HStack(spacing: 8) {
-                    Image(company.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 38, height: 38)
-                        .cornerRadius(12)
+                    if let logoURL = company.logoURL, !logoURL.isEmpty, let url = URL(string: logoURL) {
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .empty:
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.ypGrayUniversal)
+                                    .frame(width: 38, height: 38)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 38, height: 38)
+                                    .cornerRadius(12)
+                            case .failure:
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.ypGrayUniversal)
+                                    .frame(width: 38, height: 38)
+                            @unknown default:
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.ypGrayUniversal)
+                                    .frame(width: 38, height: 38)
+                            }
+                        }
+                    } else {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ypGrayUniversal)
+                            .frame(width: 38, height: 38)
+                    }
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(company.companyName)

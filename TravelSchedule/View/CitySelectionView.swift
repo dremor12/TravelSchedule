@@ -1,35 +1,29 @@
 import SwiftUI
 
 struct CitySelectionView: View {
-    let onStationSelected: (String, String) -> Void
-    @State private var searchText: String = ""
+    let onStationSelected: (String, String, String?) -> Void
+    @StateObject private var viewModel = CitySelectionViewModel(apiClient: GlobalParams.createAPIClient())
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) var dismiss
-    
-    private var filteredCities: [SelectPlaceModel] {
-        if searchText.isEmpty {
-            return SelectPlaceModel.mockCities
-        } else {
-            return SelectPlaceModel.mockCities.filter {
-                $0.city.contains(searchText)
-            }
-        }
-    }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack(spacing: 0) {
-                SearchBar(searchText: $searchText)
+                SearchBar(searchText: $viewModel.searchText)
                     .padding(.top, 8)
                 
-                if filteredCities.isEmpty {
+                if viewModel.isLoading {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                } else if viewModel.filteredCities.isEmpty {
                     Spacer()
                     Text("Город не найден")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(Colors.blackTopicColor)
                     Spacer()
                 } else {
-                    List(filteredCities) { city in
+                    List(viewModel.filteredCities) { city in
                         Button(action: {
                             navigationPath.append(city)
                         }) {
@@ -70,17 +64,21 @@ struct CitySelectionView: View {
             .navigationDestination(for: SelectPlaceModel.self) { city in
                 StationSelectionView(
                     selectedCity: city,
-                    onStationSelected: { station in
-                        onStationSelected(city.city, station)
+                    onStationSelected: { station, stationCode in
+                        onStationSelected(city.city, station, stationCode)
                         dismiss()
                     }
                 )
             }
+            .task {
+                await viewModel.loadCities()
+            }
+            .errorOverlay(errorType: $viewModel.errorType)
         }
     }
 }
 
 #Preview {
-    CitySelectionView(onStationSelected: { _, _ in })
+    CitySelectionView(onStationSelected: { _, _, _ in })
 }
 

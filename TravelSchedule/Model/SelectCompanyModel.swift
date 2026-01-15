@@ -4,6 +4,8 @@ struct SelectCompanyModel: Identifiable, Hashable {
     var id = UUID()
     var companyName: String
     var image: String
+    var logoURL: String?
+    var carrierCode: Int?
     var timeToStart: String
     var timeToOver: String
     var allTimePath: String
@@ -17,6 +19,8 @@ extension SelectCompanyModel {
         SelectCompanyModel(
             companyName: "РЖД",
             image: "rgd",
+            logoURL: nil,
+            carrierCode: 680,
             timeToStart: "22:30",
             timeToOver: "08:15",
             allTimePath: "20 часов",
@@ -27,6 +31,8 @@ extension SelectCompanyModel {
         SelectCompanyModel(
             companyName: "ФГК",
             image: "fgk",
+            logoURL: nil,
+            carrierCode: nil,
             timeToStart: "01:15",
             timeToOver: "09:00",
             allTimePath: "9 часов",
@@ -37,6 +43,8 @@ extension SelectCompanyModel {
         SelectCompanyModel(
             companyName: "Урал логистика",
             image: "urallog",
+            logoURL: nil,
+            carrierCode: nil,
             timeToStart: "12:30",
             timeToOver: "21:00",
             allTimePath: "9 часов",
@@ -47,6 +55,8 @@ extension SelectCompanyModel {
         SelectCompanyModel(
             companyName: "РЖД",
             image: "rgd",
+            logoURL: nil,
+            carrierCode: 680,
             timeToStart: "22:30",
             timeToOver: "08:15",
             allTimePath: "20 часов",
@@ -57,6 +67,8 @@ extension SelectCompanyModel {
         SelectCompanyModel(
             companyName: "РЖД",
             image: "rgd",
+            logoURL: nil,
+            carrierCode: 680,
             timeToStart: "22:30",
             timeToOver: "08:15",
             allTimePath: "20 часов",
