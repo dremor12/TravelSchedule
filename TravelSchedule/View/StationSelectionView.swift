@@ -2,33 +2,29 @@ import SwiftUI
 
 struct StationSelectionView: View {
     let selectedCity: SelectPlaceModel
-    let onStationSelected: (String) -> Void
-    @State private var searchText: String = ""
+    let onStationSelected: (String, String?) -> Void
+    @StateObject private var viewModel: StationSelectionViewModel
     @Environment(\.dismiss) var dismiss
     
-    private var filteredStations: [String] {
-        if searchText.isEmpty {
-            return selectedCity.trainStations
-        } else {
-            return selectedCity.trainStations.filter { station in
-                station.localizedCaseInsensitiveContains(searchText)
-            }
-        }
+    init(selectedCity: SelectPlaceModel, onStationSelected: @escaping (String, String?) -> Void) {
+        self.selectedCity = selectedCity
+        self.onStationSelected = onStationSelected
+        _viewModel = StateObject(wrappedValue: StationSelectionViewModel(selectedCity: selectedCity))
     }
     
     var body: some View {
         VStack(spacing: 0) {
-            SearchBar(searchText: $searchText)
+            SearchBar(searchText: $viewModel.searchText)
                 .padding(.top, 8)
             
-            if filteredStations.isEmpty {
+            if viewModel.filteredStations.isEmpty {
                 Spacer()
                 Text("Станция не найдена")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(Colors.blackTopicColor)
                 Spacer()
             } else {
-                List(filteredStations, id: \.self) { station in
+                List(viewModel.filteredStations, id: \.self) { station in
                     HStack {
                         Text(station)
                             .font(.system(size: 17, weight: .regular))
@@ -43,7 +39,8 @@ struct StationSelectionView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        onStationSelected(station)
+                        let stationCode = selectedCity.stationCodes[station]
+                        onStationSelected(station, stationCode)
                     }
                     .listRowSeparator(.hidden)
                 }
@@ -69,6 +66,6 @@ struct StationSelectionView: View {
 }
 
 #Preview {
-    StationSelectionView(selectedCity: SelectPlaceModel.mockCities[0], onStationSelected: { _ in })
+    StationSelectionView(selectedCity: SelectPlaceModel.mockCities[0], onStationSelected: { _, _ in })
 }
 

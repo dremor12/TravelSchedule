@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-@Observable
-final class StoryViewModel {
+@MainActor
+final class StoryViewModel: ObservableObject {
 
-    var stories: [StoryModel] = []
-    var viewedStories: Set<UUID> = []
-    var isPresentStory: Bool = false
+    @Published var stories: [StoryModel] = []
+    @Published var viewedStories: Set<UUID> = []
+    @Published var isPresentStory: Bool = false
 
-    var currentStoryIndex: Int = 0
-    var currentImageIndex: Int = 0
-    var progress: CGFloat = 0
+    @Published var currentStoryIndex: Int = 0
+    @Published var currentImageIndex: Int = 0
+    @Published var progress: CGFloat = 0
 
     var currentStory: StoryModel {
         return stories[currentStoryIndex]
@@ -20,15 +20,17 @@ final class StoryViewModel {
     
     init(stories: [StoryModel]) {
         self.stories = stories
-        startTimer()
     }
 
     func startTimer() {
         timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
-            self?.onTick()
+            Task { @MainActor in
+                self?.onTick()
+            }
         }
+        RunLoop.main.add(timer!, forMode: .common)
     }
     
     func stopTimer() {
@@ -76,10 +78,8 @@ final class StoryViewModel {
     }
     
     func previousStory() {
-        
         currentStoryIndex = (currentStoryIndex - 1 + stories.count) % stories.count
         currentImageIndex = 0
         progress = 0
     }
-    
 }

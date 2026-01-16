@@ -1,52 +1,46 @@
 import SwiftUI
 
 struct StoriesView: View {
-    @Bindable  var model: StoryViewModel
+    @ObservedObject var model: StoryViewModel
     var initialStory: StoryModel
     
     init(model: StoryViewModel, initialStory: StoryModel) {
         self.model = model
         self.initialStory = initialStory
-        
-        if let index = model.stories.firstIndex(where: { $0.id == initialStory.id }) {
-            model.currentStoryIndex = index
-            model.currentImageIndex = 0
-            model.progress = 0
-        }
     }
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            
             StoryView(story: model.currentStory,
                       imageIndex: model.currentImageIndex)
             .animation(.linear(duration: 0.2), value: model.currentImageIndex)
-            
             ProgressBarView(
                 numberOfSections: model.currentStory.backgroundImage.count,
                 currentImage: model.currentImageIndex,
                 progress: model.progress
             )
             .padding(.init(top: 28, leading: 12, bottom: 12, trailing: 12))
-            
             CloseButtonView {
-                model.isPresentStory = false}
+                model.isPresentStory = false
+            }
             .padding(.top, 57)
             .padding(.trailing, 12)
+            .zIndex(100)
         }
         .contentShape(Rectangle())
         .onAppear {
-            model.markCurrentStoryAsViewed()
-            model.startTimer()
-        }
-        .onDisappear { model.stopTimer() }
-        .onTapGesture { location in
-            let width = UIScreen.main.bounds.width
-            if location.x < width / 2 {
-                model.previousImage()
-            } else {
-                model.nextImage()
+            Task { @MainActor in
+                if let index = model.stories.firstIndex(where: { $0.id == initialStory.id }) {
+                    model.currentStoryIndex = index
+                    model.currentImageIndex = 0
+                    model.progress = 0
+                }
+                model.markCurrentStoryAsViewed()
+                model.startTimer()
             }
+        }
+        .onDisappear {
+            model.stopTimer()
         }
         .gesture(
             DragGesture(minimumDistance: 50)
@@ -59,6 +53,17 @@ struct StoriesView: View {
                 }
         )
         .background(.ypBlackUniversal)
+        .onTapGesture { location in
+            let width = UIScreen.main.bounds.width
+            let closeButtonArea = CGRect(x: width - 80, y: 0, width: 80, height: 120)
+            if !closeButtonArea.contains(location) {
+                if location.x < width / 2 {
+                    model.previousImage()
+                } else {
+                    model.nextImage()
+                }
+            }
+        }
     }
     
 }

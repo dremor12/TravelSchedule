@@ -3,7 +3,9 @@ import Foundation
 struct SelectPlaceModel: Hashable, Identifiable {
     var id = UUID()
     var city: String
+    var cityCode: String?
     var trainStations: [String]
+    var stationCodes: [String: String]
 }
 
 extension SelectPlaceModel {
@@ -18,7 +20,8 @@ extension SelectPlaceModel {
                 "Белорусский вокзал",
                 "Савеловский вокзал",
                 "Ленинградский вокзал",
-            ]
+            ],
+            stationCodes: [:]
         ),
     
         SelectPlaceModel(
@@ -28,7 +31,8 @@ extension SelectPlaceModel {
                 "Ладожский вокзал",
                 "Витебский вокзал",
                 "Финляндский вокзал"
-            ]
+            ],
+            stationCodes: [:]
         ),
 
         SelectPlaceModel(
@@ -38,7 +42,8 @@ extension SelectPlaceModel {
                 "Адлер",
                 "Хоста",
                 "Лазаревская"
-            ]
+            ],
+            stationCodes: [:]
         ),
 
         SelectPlaceModel(
@@ -47,7 +52,8 @@ extension SelectPlaceModel {
                 "Южно-Сахалинск",
                 "Холмск",
                 "Томари"
-            ]
+            ],
+            stationCodes: [:]
         ),
 
         SelectPlaceModel(
@@ -56,7 +62,8 @@ extension SelectPlaceModel {
                 "Краснодар-1",
                 "Краснодар-2",
                 "Краснодар-Сортировочный"
-            ]
+            ],
+            stationCodes: [:]
         ),
 
         SelectPlaceModel(
@@ -65,7 +72,8 @@ extension SelectPlaceModel {
                 "Казань-Пассажирская",
                 "Восстание-Пассажирская",
                 "Казань-2"
-            ]
+            ],
+            stationCodes: [:]
         ),
 
         SelectPlaceModel(
@@ -74,7 +82,8 @@ extension SelectPlaceModel {
                 "Омск-Пассажирский",
                 "Омск-Северный",
                 "Омск-Восточный"
-            ]
+            ],
+            stationCodes: [:]
         )
     ]
 }
