@@ -6,42 +6,20 @@ enum NavigationDestination: Hashable {
 }
 
 struct ListOfStationsView: View {
-    let fromCity: String
-    let fromStation: String
-    let fromStationCode: String?
-    let toCity: String
-    let toStation: String
-    let toStationCode: String?
-    
+    let route: RouteModel
+
     @StateObject private var viewModel: ListOfStationsViewModel
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) var dismiss
-    
-    init(
-        fromCity: String,
-        fromStation: String,
-        fromStationCode: String?,
-        toCity: String,
-        toStation: String,
-        toStationCode: String?
-    ) {
-        self.fromCity = fromCity
-        self.fromStation = fromStation
-        self.fromStationCode = fromStationCode
-        self.toCity = toCity
-        self.toStation = toStation
-        self.toStationCode = toStationCode
+
+    init(route: RouteModel) {
+        self.route = route
         _viewModel = StateObject(wrappedValue: ListOfStationsViewModel(
-            fromCity: fromCity,
-            fromStation: fromStation,
-            fromStationCode: fromStationCode,
-            toCity: toCity,
-            toStation: toStation,
-            toStationCode: toStationCode,
+            route: route,
             apiClient: GlobalParams.createAPIClient()
         ))
     }
-    
+
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack(spacing: 0) {
@@ -136,7 +114,7 @@ struct ListOfStationsView: View {
 }
 
 #Preview {
-    ListOfStationsView(
+    let route = RouteModel(
         fromCity: "Москва",
         fromStation: "Ярославский вокзал",
         fromStationCode: "s2000001",
@@ -144,4 +122,5 @@ struct ListOfStationsView: View {
         toStation: "Балтийский вокзал",
         toStationCode: "s9600213"
     )
+    return ListOfStationsView(route: route)
 }

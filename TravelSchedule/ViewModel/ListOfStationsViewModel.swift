@@ -10,17 +10,12 @@ final class ListOfStationsViewModel: ObservableObject {
     @Published var selectedTimePeriods: Set<TimePeriod> = []
     @Published var selectedTransferOption: TransferOption? = nil
     
-    let fromCity: String
-    let fromStation: String
-    let fromStationCode: String?
-    let toCity: String
-    let toStation: String
-    let toStationCode: String?
+    let route: RouteModel
     
     private let apiClient: APIClient
     
     var routeTitle: String {
-        return "\(fromCity) (\(fromStation)) → \(toCity) (\(toStation))"
+        route.routeTitle
     }
     
     var hasActiveFilters: Bool {
@@ -47,21 +42,8 @@ final class ListOfStationsViewModel: ObservableObject {
         return filtered
     }
     
-    init(
-        fromCity: String,
-        fromStation: String,
-        fromStationCode: String?,
-        toCity: String,
-        toStation: String,
-        toStationCode: String?,
-        apiClient: APIClient
-    ) {
-        self.fromCity = fromCity
-        self.fromStation = fromStation
-        self.fromStationCode = fromStationCode
-        self.toCity = toCity
-        self.toStation = toStation
-        self.toStationCode = toStationCode
+    init(route: RouteModel, apiClient: APIClient) {
+        self.route = route
         self.apiClient = apiClient
     }
     
@@ -73,7 +55,7 @@ final class ListOfStationsViewModel: ObservableObject {
             let fromCode: String
             let toCode: String
             
-            if let fromStationCode = fromStationCode, !fromStationCode.isEmpty {
+            if let fromStationCode = route.fromStationCode, !fromStationCode.isEmpty {
                 fromCode = fromStationCode.hasPrefix("s") ? fromStationCode : "s\(fromStationCode)"
             } else {
                 isLoading = false
@@ -81,7 +63,7 @@ final class ListOfStationsViewModel: ObservableObject {
                 return
             }
             
-            if let toStationCode = toStationCode, !toStationCode.isEmpty {
+            if let toStationCode = route.toStationCode, !toStationCode.isEmpty {
                 toCode = toStationCode.hasPrefix("s") ? toStationCode : "s\(toStationCode)"
             } else {
                 isLoading = false

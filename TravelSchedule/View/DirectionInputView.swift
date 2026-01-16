@@ -28,7 +28,7 @@ struct DirectionInputView: View {
                    let fromStation = viewModel.fromStation,
                    let toCity = viewModel.toCity,
                    let toStation = viewModel.toStation {
-                    ListOfStationsView(
+                    let route = RouteModel(
                         fromCity: fromCity,
                         fromStation: fromStation,
                         fromStationCode: viewModel.fromStationCode,
@@ -36,6 +36,7 @@ struct DirectionInputView: View {
                         toStation: toStation,
                         toStationCode: viewModel.toStationCode
                     )
+                    ListOfStationsView(route: route)
                 }
             }
         }

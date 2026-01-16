@@ -10,6 +10,7 @@ final class CarrierCardViewModel: ObservableObject {
     @Published var phone: String = ""
     @Published var isLoading: Bool = false
     @Published var errorType: ErrorType? = nil
+    @Published var isImageLoaded: Bool = false
     
     private let apiClient: APIClient
     private let company: SelectCompanyModel
@@ -43,6 +44,7 @@ final class CarrierCardViewModel: ObservableObject {
             } else {
                 logoURL = company.logoURL
             }
+            isImageLoaded = false
             isLoading = false
         } catch {
             isLoading = false
